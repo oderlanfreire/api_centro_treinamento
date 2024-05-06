@@ -1,7 +1,7 @@
 from datetime import datetime
-from sqlalchemy import DateTime, Float, Integer, String
+from sqlalchemy import DateTime, ForeignKey, Float, Integer, String
 from api.contrib.models import BaseModel
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 
 class AtletaModel(BaseModel):
@@ -15,5 +15,5 @@ class AtletaModel(BaseModel):
     altura: Mapped[float] = mapped_column(Float, nullable=False)
     sexo: Mapped[str] = mapped_column(String(1), nullable=False)
     created_at: Mapped[datetime] = mapped_column(DateTime, nullable=False)
-
-    
+    categoria: Mapped['CategoriaModel'] = relationship(back_populates="atleta")
+    categoria_id: Mapped[int] = mapped_column(ForeignKey("categorias.pk_id"))    
